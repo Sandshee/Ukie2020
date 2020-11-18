@@ -272,7 +272,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switchCont: {fileID: 519420030}
   startAngle: {x: 0, y: 0, z: 0}
-  angle: 90
+  angles:
+  - 0
+  - 90
+  - 180
+  - -90
   speed: 0.5
 --- !u!114 &469264647
 MonoBehaviour:
@@ -418,6 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 519420033}
+  index: 0
   characters:
   - {fileID: 2137299580}
   - {fileID: 2109777654}
@@ -509,7 +514,7 @@ GameObject:
   - component: {fileID: 1666422713}
   - component: {fileID: 1666422717}
   - component: {fileID: 1666422716}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GRN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,6 +534,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  active: 0
+  activeZ: -5
+  inactiveZ: 0
 --- !u!212 &1666422714
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -761,7 +769,7 @@ GameObject:
   - component: {fileID: 2013431174}
   - component: {fileID: 2013431178}
   - component: {fileID: 2013431177}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BLU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -781,6 +789,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  active: 0
+  activeZ: -5
+  inactiveZ: 0
 --- !u!212 &2013431175
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -905,7 +916,7 @@ GameObject:
   - component: {fileID: 2109777654}
   - component: {fileID: 2109777656}
   - component: {fileID: 2109777655}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YLW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -925,6 +936,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  active: 0
+  activeZ: -5
+  inactiveZ: 0
 --- !u!50 &2109777655
 Rigidbody2D:
   serializedVersion: 4
@@ -1049,7 +1063,7 @@ GameObject:
   - component: {fileID: 2137299580}
   - component: {fileID: 2137299584}
   - component: {fileID: 2137299583}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RED
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1069,6 +1083,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  active: 0
+  activeZ: -5
+  inactiveZ: 0
 --- !u!212 &2137299581
 SpriteRenderer:
   m_ObjectHideFlags: 0

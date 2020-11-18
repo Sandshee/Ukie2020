@@ -8,6 +8,8 @@ public class Character : MonoBehaviour
     private Rigidbody2D rb2d;
 
     public bool active;
+    public int activeZ;
+    public int inactiveZ;
 
     void Start()
     {
@@ -25,13 +27,20 @@ public class Character : MonoBehaviour
         }
     }
 
+    public void updateZ(float newZ)
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, newZ);
+    }
+
     public void activate()
     {
+        updateZ(activeZ);
         active = true;
     }
 
     public void deActivate()
     {
+        updateZ(inactiveZ);
         active = false;
     }
 }
