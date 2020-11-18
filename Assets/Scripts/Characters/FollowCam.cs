@@ -23,6 +23,12 @@ public class FollowCam : MonoBehaviour
 
     public void updateFollowing(Character following)
     {
+        if (this.following)
+        {
+            this.following.deActivate();
+        }
         this.following = following;
+        this.following.activate();
+        
     }
 }

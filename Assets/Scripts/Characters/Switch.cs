@@ -6,17 +6,22 @@ public class Switch : MonoBehaviour
 {
     public FollowCam cam;
     private int index = 0;
-    private Character[] characters;
+    public Character[] characters;
 
     public int coolDown = 30;
     private int timer = 0;
 
     private bool canSwitch = true;
 
+    public int direction = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        characters = FindObjectsOfType<Character>();
+        if (characters.Length == 0)
+        {
+            characters = FindObjectsOfType<Character>();
+        }
     }
 
     // Update is called once per frame
@@ -27,10 +32,12 @@ public class Switch : MonoBehaviour
         {
             index--;
             canSwitch = false;
+            direction = -1;
         } else if(canSwitch && Input.GetAxisRaw("SwitchRight") > 0)
         {
             index++;
             canSwitch = false;
+            direction = 1;
         }
 
 
@@ -43,6 +50,7 @@ public class Switch : MonoBehaviour
         {
             canSwitch = true;
             timer = 0;
+            direction = 0;
         }
 
         //Loop round the list
