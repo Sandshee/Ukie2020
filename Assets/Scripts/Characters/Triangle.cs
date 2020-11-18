@@ -6,7 +6,7 @@ public class Triangle : MonoBehaviour
 {
     public EdgeCollider2D triLeft;
     public EdgeCollider2D triRight;
-    private BoxCollider2D thisBox;
+    private CapsuleCollider2D thisCap;
     private Rigidbody2D thisBody;
     private Character thisChar;
 
@@ -19,12 +19,12 @@ public class Triangle : MonoBehaviour
 
     private bool onCoolDown = false;
     public int coolDown;
-    private int timer = 0;
+    public int timer = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        thisBox = GetComponent<BoxCollider2D>();
+        thisCap = GetComponent<CapsuleCollider2D>();
         thisBody = GetComponent<Rigidbody2D>();
         thisChar = GetComponent<Character>();
     }
@@ -32,6 +32,14 @@ public class Triangle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(thisBody.velocity.x > 0)
+        {
+            faceLeft = false;
+        } else if(thisBody.velocity.x < 0)
+        {
+            faceLeft = true;
+        }
+
         if (Input.GetAxisRaw("Ability") > 0 && !onCoolDown && thisChar.active)
         {
             onCoolDown = true;
@@ -42,7 +50,7 @@ public class Triangle : MonoBehaviour
                 thisChar.unFreeze();
                 triLeft.enabled = false;
                 triRight.enabled = false;
-                thisBox.enabled = true;
+                thisCap.enabled = true;
 
                 gameObject.layer = normalLayer;
                 thisBody.bodyType = RigidbodyType2D.Dynamic;
@@ -52,7 +60,7 @@ public class Triangle : MonoBehaviour
             {
                 stopped = true;
                 thisChar.freeze();
-                thisBox.enabled = false;
+                thisCap.enabled = false;
                 gameObject.layer = frozenLayer;
                 thisBody.bodyType = RigidbodyType2D.Static;
 
@@ -74,7 +82,7 @@ public class Triangle : MonoBehaviour
             onCoolDown = false;
         }
 
-        if (onCoolDown)
+        if (onCoolDown && Input.GetAxisRaw("Ability") <= 0)
         {
             timer++;
         }

@@ -7,9 +7,7 @@ public class FollowCam : MonoBehaviour
     public Character following;
     public float speed = 0.1f;
 
-    private void Start()
-    {
-    }
+    public float minDist = 0.1f;
 
     // Update is called once per frame
     void Update()
@@ -18,7 +16,16 @@ public class FollowCam : MonoBehaviour
         float newY = Mathf.Lerp(transform.position.y, following.transform.position.y, speed);
         float zValue = transform.position.z;
 
-        transform.position = new Vector3(newX, newY, zValue);
+        Vector2 newVec = new Vector2(newX, newY);
+
+        if (Vector2.Distance(newVec, following.transform.position) < minDist)
+        {
+            transform.position = new Vector3(following.transform.position.x, following.transform.position.y, zValue);
+        }
+        else
+        {
+            transform.position = new Vector3(newX, newY, zValue);
+        }
     }
 
     public void updateFollowing(Character following)

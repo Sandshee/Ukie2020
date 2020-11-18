@@ -9,20 +9,20 @@ public class SpringPower : MonoBehaviour
     public float springForce;
     private Character thisChar;
     private Rigidbody2D thisBody;
-    private BoxCollider2D thisCol;
+    public BoxCollider2D thisCol;
+    public BoxCollider2D springCol;
 
     public int normalLayer;
     public int frozenLayer;
 
     private bool onCoolDown = false;
     public int coolDown = 15;
-    private int timer = 0;
+    public int timer = 0;
 
     private void Start()
     {
         thisChar = GetComponent<Character>();
         thisBody = GetComponent<Rigidbody2D>();
-        thisCol = GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -32,18 +32,18 @@ public class SpringPower : MonoBehaviour
 
     public void ToggleSpringPower()
     {
-        if (!onCoolDown && thisChar.active)
+        if (thisChar.active)
         {
-            if (Input.GetAxisRaw("Ability") > 0)
+            if (Input.GetAxisRaw("Ability") > 0 && !onCoolDown)
             {
                 isSpringActive = !isSpringActive;
                 SetSpringState();
-            }
 
-            onCoolDown = true;
+                onCoolDown = true;
+            }
         }
 
-        if (onCoolDown)
+        if (onCoolDown && Input.GetAxisRaw("Ability") <= 0)
         {
             timer++;
         }
@@ -51,6 +51,7 @@ public class SpringPower : MonoBehaviour
         if (timer >= coolDown)
         {
             onCoolDown = false;
+            timer = 0;
         }
     }
 
@@ -60,7 +61,8 @@ public class SpringPower : MonoBehaviour
         {
             thisChar.freeze();
             isSpringActive = true;
-            thisCol.isTrigger = true;
+            thisCol.enabled = false;
+            springCol.enabled = true;
             thisBody.bodyType = RigidbodyType2D.Static;
             gameObject.layer = frozenLayer;
 
@@ -69,7 +71,8 @@ public class SpringPower : MonoBehaviour
         {
             thisChar.unFreeze();
             isSpringActive = false;
-            thisCol.isTrigger = false;
+            thisCol.enabled = true;
+            springCol.enabled = false;
             thisBody.bodyType = RigidbodyType2D.Dynamic;
             gameObject.layer = normalLayer;
 
@@ -86,9 +89,10 @@ public class SpringPower : MonoBehaviour
             if (colBody.velocity.y < 0)
             {
                 colBody.velocity = new Vector3(colBody.velocity.x, springForce);
+                Debug.Log("Badoing!");
             } else
             {
-                //Do nothing
+                Debug.Log("No, not going down");
             }
             //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, springForce));
         }
