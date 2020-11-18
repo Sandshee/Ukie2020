@@ -5,7 +5,9 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public float movementSpeed;
+    private float regularSpeed;
     private Rigidbody2D rb2d;
+    public float currentMovementSpeed;
 
     public bool active;
     public int activeZ;
@@ -14,6 +16,7 @@ public class Character : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        regularSpeed = movementSpeed;
     }
 
     void FixedUpdate()
@@ -23,7 +26,7 @@ public class Character : MonoBehaviour
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
             Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-            rb2d.AddForce(movement * movementSpeed);
+            rb2d.AddForce(movement * currentMovementSpeed);
         }
     }
 
@@ -42,5 +45,15 @@ public class Character : MonoBehaviour
     {
         updateZ(inactiveZ);
         active = false;
+    }
+
+    public void freeze()
+    {
+        movementSpeed = 0;
+    }
+
+    public void unFreeze()
+    {
+        movementSpeed = regularSpeed;
     }
 }
