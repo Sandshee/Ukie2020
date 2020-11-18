@@ -624,7 +624,7 @@ GameObject:
   - component: {fileID: 1666422716}
   m_Layer: 8
   m_Name: GRN
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -642,6 +642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  currentMovementSpeed: 10
   active: 0
   activeZ: -5
   inactiveZ: 0
@@ -877,9 +878,10 @@ GameObject:
   - component: {fileID: 2013431174}
   - component: {fileID: 2013431178}
   - component: {fileID: 2013431177}
+  - component: {fileID: 2013431179}
   m_Layer: 8
   m_Name: BLU
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -897,6 +899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  currentMovementSpeed: 10
   active: 0
   activeZ: -5
   inactiveZ: 0
@@ -958,7 +961,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013431173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.492, y: 3.443, z: 0}
+  m_LocalPosition: {x: 3.57, y: -3.46, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1011,6 +1014,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
+--- !u!114 &2013431179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013431173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca044a4f299f7a44a1610d902d59bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canUseSpringPower: 1
+  isSpringActive: 0
+  springForce: 1
+  normalLayer: 8
+  frozenLayer: 9
+  coolDown: 15
 --- !u!1 &2109777653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,7 +1050,7 @@ GameObject:
   - component: {fileID: 2109777660}
   m_Layer: 8
   m_Name: YLW
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1047,6 +1068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  currentMovementSpeed: 10
   active: 0
   activeZ: -5
   inactiveZ: 0
@@ -1175,12 +1197,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triLeft: {fileID: 2109777661}
   triRight: {fileID: 2109777660}
-  normalLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  frozenLayer:
-    serializedVersion: 2
-    m_Bits: 512
+  normalLayer: 8
+  frozenLayer: 9
   faceLeft: 0
   stopped: 0
   coolDown: 15
@@ -1239,7 +1257,7 @@ GameObject:
   - component: {fileID: 2137299583}
   m_Layer: 8
   m_Name: RED
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1257,6 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 20
+  currentMovementSpeed: 20
   active: 0
   activeZ: -5
   inactiveZ: 0
@@ -1318,7 +1337,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2137299579}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.41, y: -3.48, z: 0}
+  m_LocalPosition: {x: 4.61, y: -2.66, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}

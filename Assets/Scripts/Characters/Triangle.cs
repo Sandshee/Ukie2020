@@ -10,8 +10,8 @@ public class Triangle : MonoBehaviour
     private Rigidbody2D thisBody;
     private Character thisChar;
 
-    public LayerMask normalLayer;
-    public LayerMask frozenLayer;
+    public int normalLayer;
+    public int frozenLayer;
 
     public bool faceLeft;
 
@@ -32,7 +32,7 @@ public class Triangle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxisRaw("Ability") > 0 && !onCoolDown)
+        if (Input.GetAxisRaw("Ability") > 0 && !onCoolDown && thisChar.active)
         {
             onCoolDown = true;
 
@@ -45,14 +45,16 @@ public class Triangle : MonoBehaviour
                 thisBox.enabled = true;
 
                 gameObject.layer = normalLayer;
+                thisBody.bodyType = RigidbodyType2D.Dynamic;
 
-            } else
+            }
+            else
             {
                 stopped = true;
                 thisChar.freeze();
                 thisBox.enabled = false;
-
                 gameObject.layer = frozenLayer;
+                thisBody.bodyType = RigidbodyType2D.Static;
 
                 //If its facing left, enable the left block
                 if (faceLeft)

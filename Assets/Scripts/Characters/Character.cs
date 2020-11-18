@@ -16,7 +16,7 @@ public class Character : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        regularSpeed = movementSpeed;
+        regularSpeed = currentMovementSpeed;
     }
 
     void FixedUpdate()
@@ -49,11 +49,11 @@ public class Character : MonoBehaviour
 
     public void freeze()
     {
-        movementSpeed = 0;
+        currentMovementSpeed = 0;
     }
 
     public void unFreeze()
     {
-        movementSpeed = regularSpeed;
+        currentMovementSpeed = regularSpeed;
     }
 }
