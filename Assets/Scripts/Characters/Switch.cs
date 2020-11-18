@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Switch : MonoBehaviour
 {
-    public Character[] characters;
     public FollowCam cam;
     private int index = 0;
+    private Character[] characters;
 
     public int coolDown = 30;
     private int timer = 0;
@@ -16,7 +16,7 @@ public class Switch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        characters = FindObjectsOfType<Character>();
     }
 
     // Update is called once per frame
