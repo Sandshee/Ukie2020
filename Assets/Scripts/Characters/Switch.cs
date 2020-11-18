@@ -5,7 +5,7 @@ using UnityEngine;
 public class Switch : MonoBehaviour
 {
     public FollowCam cam;
-    private int index = 0;
+    public int index = 0;
     public Character[] characters;
 
     public int coolDown = 30;

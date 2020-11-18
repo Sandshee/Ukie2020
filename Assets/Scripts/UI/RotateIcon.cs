@@ -10,30 +10,28 @@ public class RotateIcon : MonoBehaviour
     private Vector3 destAngle;
     private bool moving;
 
-    public float angle;
+    public float[] angles = { 0, 90, 180, -90};
+    private Quaternion[] quatAngles = new Quaternion[4];
+    private float index;
+
     public float speed;
 
-    // Start is called before the first frame update
+    // Update is called once per frame
+
     void Start()
     {
+        for(int i = 0; i < 4; i++)
+        {
+            quatAngles[i] = Quaternion.Euler(new Vector3(0, 0, angles[i]));
+        }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
 
-        if (switchCont.direction != 0 && !moving)
+        if (switchCont.direction != 0)
         {
-            startAngle = transform.rotation.eulerAngles;
-            destAngle = new Vector3(0, 0, transform.rotation.eulerAngles.z + (angle * switchCont.direction));
-            moving = true;
-        }
-
-        transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, destAngle, speed));
-
-        if (switchCont.direction == 0)
-        {
-            moving = false;
+            transform.rotation = Quaternion.Lerp(transform.rotation, quatAngles[switchCont.index], speed);
         }
 
     }

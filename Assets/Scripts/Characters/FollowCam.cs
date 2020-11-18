@@ -29,6 +29,5 @@ public class FollowCam : MonoBehaviour
         }
         this.following = following;
         this.following.activate();
-        
     }
 }
