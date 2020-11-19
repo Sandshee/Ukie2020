@@ -6,7 +6,19 @@ public class SingingPower : MonoBehaviour
 {
     public bool canUseSingingPower;
     public bool isSingingActive;
-    public GameObject SingingVisuals;
+    public SingingTrigger singingVisuals;
+    public CircleCollider2D singingHitbox;
+
+    public Animator singingAnim;
+    public Animator visualsAnim;
+
+    private bool onCoolDown = false;
+    public int coolDown;
+    public int timer = 0;
+
+    public bool stopped;
+
+    private Character thisChar;
 
     //Requires:
     //-a child game object to activate (SingingVisuals), this will display the sound visuals (waves, notes or whatever effect), and will also hold a 2d collider component, set to trigger 
@@ -18,6 +30,13 @@ public class SingingPower : MonoBehaviour
     //-while singing is active, detect colliding game objects with a 2d collider component (enemies?)
 
 
+    private void Start()
+    {
+        visualsAnim = singingVisuals.GetComponent<Animator>();
+        singingHitbox = singingVisuals.GetComponent<CircleCollider2D>();
+        thisChar = GetComponent<Character>();
+    }
+
     void Update()
     {
         ToggleSingingPower();
@@ -25,32 +44,41 @@ public class SingingPower : MonoBehaviour
 
     public void ToggleSingingPower()
     {
-        if (canUseSingingPower)
-        {
-            //|| Input.GetAxisRaw("Ability")>0
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                isSingingActive = true;
-                SetSpringState();
-            }
 
-            if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetAxisRaw("Ability") > 0 && !onCoolDown && thisChar.active)
+        {
+            onCoolDown = true;
+
+            if (stopped)
             {
-                isSingingActive = false;
-                SetSpringState();
+                stopped = false;
+                thisChar.unFreeze();
+                singingAnim.SetBool("Singing", false);
+
+                singingHitbox.enabled = false;
+                visualsAnim.SetBool("Singing", false);
+            }
+            else
+            {
+                stopped = true;
+                thisChar.freeze();
+                singingAnim.SetBool("Singing", true);
+
+                singingHitbox.enabled = true;
+                visualsAnim.SetBool("Singing", true);
+
             }
         }
-    }
 
-    public void SetSpringState()
-    {
-        if (isSingingActive)
+        if (timer >= coolDown)
         {
-            SingingVisuals.SetActive(true);
+            timer = 0;
+            onCoolDown = false;
         }
-        else
+
+        if (onCoolDown && Input.GetAxisRaw("Ability") <= 0)
         {
-            SingingVisuals.SetActive(false);
+            timer++;
         }
     }
 

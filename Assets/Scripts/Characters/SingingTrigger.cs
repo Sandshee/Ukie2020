@@ -7,12 +7,9 @@ public class SingingTrigger : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         //change to tag if you prefer :D
-        if(collision.gameObject.name=="Enemy")
-        PutEnemiesToSleep(collision.gameObject);
-    }
-
-    public void PutEnemiesToSleep(GameObject enemy) 
-    {
-        enemy.GetComponent<Enemy>().isAsleep = true;
+        if (collision.CompareTag("Enemy"))
+        {
+            collision.GetComponent<Enemy>().sleep();
+        }
     }
 }

@@ -33,10 +33,10 @@ public class Triangle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(thisBody.velocity.x > 0)
+        if(thisBody.velocity.x > 1f)
         {
             faceLeft = false;
-        } else if(thisBody.velocity.x < 0)
+        } else if(thisBody.velocity.x < -1f)
         {
             faceLeft = true;
         }
