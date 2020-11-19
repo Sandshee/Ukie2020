@@ -30,12 +30,15 @@ public class Character : MonoBehaviour
 
     private Animator anim;
 
+    private AudioSource audioS;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         regularSpeed = currentMovementSpeed;
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
+        audioS = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -44,7 +47,6 @@ public class Character : MonoBehaviour
         {
             float moveHorizontal = Input.GetAxis("Horizontal");
             //float moveVertical = Input.GetAxis("Vertical");
-
             Vector2 direction = complexGround();
 
             Debug.DrawRay(transform.position, direction);
@@ -73,9 +75,12 @@ public class Character : MonoBehaviour
                 anim.SetBool("Moving", false);
             }
             rotation(direction);
+        } else if(audioS.isPlaying)
+        {
+            audioS.Pause();
         }
 
-        if(rb2d.velocity.x > minSpeed)
+        if (rb2d.velocity.x > minSpeed)
         {
             sr.flipX = false;
         } else if (rb2d.velocity.x < -minSpeed)
@@ -166,12 +171,14 @@ public class Character : MonoBehaviour
     {
         updateZ(activeZ);
         active = true;
+        audioS.UnPause();
     }
 
     public void deActivate()
     {
         updateZ(inactiveZ);
         active = false;
+        audioS.Pause();
     }
 
     public void freeze()

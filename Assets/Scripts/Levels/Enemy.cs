@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
+
     }
 
     // Update is called once per frame
