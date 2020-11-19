@@ -23,6 +23,11 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
     }
 
+    public void loadScene(string sceneName)
+    {
+        StartCoroutine(LoadLevel(sceneName));
+    }
+
     IEnumerator LoadLevel(int levelIndex)
     {
         anim.SetTrigger("Fade");
