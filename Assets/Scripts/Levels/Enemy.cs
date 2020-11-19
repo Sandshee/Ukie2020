@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour
     public float maxSpeed;
     public float force;
 
+    public int defaultLayer;
+    public int sleepingLayer;
+
     public LayerMask whatIsGround;
 
     public int headingRight = 1;
@@ -21,6 +24,10 @@ public class Enemy : MonoBehaviour
     private AudioSource audioS;
 
     private Animator anim;
+
+    public int sleepLag;
+    private int sleepTimer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,11 +50,13 @@ public class Enemy : MonoBehaviour
 
             anim.SetBool("Sleeping", false);
             audioS.clip = idle;
+            gameObject.layer = defaultLayer;
 
         } else
         {
             anim.SetBool("Sleeping", true);
             audioS.clip = sleeping;
+            gameObject.layer = sleepingLayer;
         }
 
         if (foundWall())
@@ -57,12 +66,19 @@ public class Enemy : MonoBehaviour
             rb2d.velocity = Vector2.zero;
         }
 
-        isAsleep = false;
+        sleepTimer++;
+
+        if(sleepTimer >= sleepLag)
+        {
+            isAsleep = false;
+            sleepTimer = 0;
+        }
     }
 
     public void sleep()
     {
         isAsleep = true;
+        sleepTimer = 0;
     }
 
     private bool foundWall()

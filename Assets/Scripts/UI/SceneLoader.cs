@@ -23,6 +23,11 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
     }
 
+    public void exitGame()
+    {
+        Application.Quit();
+    }
+
     public void loadScene(string sceneName)
     {
         StartCoroutine(LoadLevel(sceneName));

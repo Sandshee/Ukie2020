@@ -52,12 +52,12 @@ public class Character : MonoBehaviour
 
     void FixedUpdate()
     {
+        Vector2 direction = complexGround();
         if (active)
         {
 
             float moveHorizontal = Input.GetAxis("Horizontal");
             //float moveVertical = Input.GetAxis("Vertical");
-            Vector2 direction = complexGround();
 
             Debug.DrawRay(transform.position, direction);
 
@@ -96,6 +96,12 @@ public class Character : MonoBehaviour
         {
             audioS.Pause();
         }
+
+        if (Mathf.Abs(Vector2.Dot(rb2d.velocity, direction)) < minSpeed)
+        {
+            anim.SetBool("Moving", false);
+        }
+            
 
         if (rb2d.velocity.x > minSpeed)
         {
