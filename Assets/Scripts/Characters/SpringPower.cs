@@ -11,6 +11,7 @@ public class SpringPower : MonoBehaviour
     private Rigidbody2D thisBody;
     public CapsuleCollider2D thisCol;
     public BoxCollider2D springCol;
+    private Animator anim;
 
     public int normalLayer;
     public int frozenLayer;
@@ -23,6 +24,7 @@ public class SpringPower : MonoBehaviour
     {
         thisChar = GetComponent<Character>();
         thisBody = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -59,6 +61,8 @@ public class SpringPower : MonoBehaviour
     {
         if (isSpringActive)
         {
+            anim.SetBool("Ready", true);
+
             thisChar.freeze();
             isSpringActive = true;
             thisCol.enabled = false;
@@ -69,6 +73,8 @@ public class SpringPower : MonoBehaviour
         }
         else
         {
+            anim.SetBool("Ready", false);
+
             thisChar.unFreeze();
             isSpringActive = false;
             thisCol.enabled = true;
@@ -86,10 +92,11 @@ public class SpringPower : MonoBehaviour
             print(collision.gameObject.name);
             Rigidbody2D colBody = collision.GetComponent<Rigidbody2D>();
             //Ensures we only spring objects moving down.
-            if (colBody.velocity.y < 0)
+            if (colBody.velocity.y < -1f)
             {
                 colBody.velocity = new Vector3(colBody.velocity.x, springForce);
                 Debug.Log("Badoing!");
+                anim.SetTrigger("Boing");
             } else
             {
                 Debug.Log("No, not going down");
