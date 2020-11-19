@@ -11,6 +11,9 @@ public class Triangle : MonoBehaviour
     private Character thisChar;
     public Animator anim;
 
+    private AudioSource audioS;
+    public AudioClip sigh;
+
     public int normalLayer;
     public int frozenLayer;
 
@@ -28,6 +31,7 @@ public class Triangle : MonoBehaviour
         thisCap = GetComponent<CapsuleCollider2D>();
         thisBody = GetComponent<Rigidbody2D>();
         thisChar = GetComponent<Character>();
+        audioS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -60,6 +64,7 @@ public class Triangle : MonoBehaviour
             }
             else
             {
+                audioS.PlayOneShot(sigh);
                 stopped = true;
                 thisChar.freeze();
                 thisCap.enabled = false;

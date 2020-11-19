@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
     public LayerMask whatIsGround;
     public float slopeFriction;
 
+    public float timeBetweenSteps = 0.5f;
     public float maxSpeed;
 
     public bool active;
@@ -32,6 +33,13 @@ public class Character : MonoBehaviour
 
     private AudioSource audioS;
 
+    public AudioClip[] footsteps;
+    private bool canStep = true;
+
+    private ParticleSystem particles;
+
+    public AudioClip[] pops;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -39,12 +47,14 @@ public class Character : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
         audioS = GetComponent<AudioSource>();
+        particles = GetComponent<ParticleSystem>();
     }
 
     void FixedUpdate()
     {
         if (active)
         {
+
             float moveHorizontal = Input.GetAxis("Horizontal");
             //float moveVertical = Input.GetAxis("Vertical");
             Vector2 direction = complexGround();
@@ -70,10 +80,17 @@ public class Character : MonoBehaviour
             if(Mathf.Abs(Vector2.Dot(rb2d.velocity, direction)) > minSpeed)
             {
                 anim.SetBool("Moving", true);
+                if (canStep)
+                {
+                    canStep = false;
+                    StartCoroutine(waitStep());
+                    audioS.PlayOneShot(footsteps[(int) Random.Range(0,footsteps.Length)]);
+                }
             } else
             {
                 anim.SetBool("Moving", false);
             }
+
             rotation(direction);
         } else if(audioS.isPlaying)
         {
@@ -128,6 +145,15 @@ public class Character : MonoBehaviour
 
     }
 
+    IEnumerator waitStep()
+    {
+
+        yield return new WaitForSeconds(timeBetweenSteps);
+        canStep = true;
+
+    }
+
+
     private Vector2 normToTang(Vector2 norm)
     {
         Vector2 tang = new Vector2(norm.y, -norm.x);
@@ -169,6 +195,8 @@ public class Character : MonoBehaviour
 
     public void activate()
     {
+        audioS.PlayOneShot(pops[(int) Random.Range(0, pops.Length)]);
+        particles.Play();
         updateZ(activeZ);
         active = true;
         audioS.UnPause();

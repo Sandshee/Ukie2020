@@ -13,6 +13,9 @@ public class SpringPower : MonoBehaviour
     public BoxCollider2D springCol;
     private Animator anim;
 
+    private AudioSource audioS;
+    public AudioClip spring;
+
     public int normalLayer;
     public int frozenLayer;
 
@@ -25,6 +28,8 @@ public class SpringPower : MonoBehaviour
         thisChar = GetComponent<Character>();
         thisBody = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
+        audioS = GetComponent<AudioSource>();
+
     }
 
     void Update()
@@ -97,6 +102,7 @@ public class SpringPower : MonoBehaviour
                 colBody.velocity = new Vector3(colBody.velocity.x, springForce);
                 Debug.Log("Badoing!");
                 anim.SetTrigger("Boing");
+                audioS.PlayOneShot(spring);
             } else
             {
                 Debug.Log("No, not going down");

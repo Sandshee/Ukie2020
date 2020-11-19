@@ -20,6 +20,8 @@ public class SingingPower : MonoBehaviour
 
     private Character thisChar;
 
+    public AudioSource audioS;
+
     //Requires:
     //-a child game object to activate (SingingVisuals), this will display the sound visuals (waves, notes or whatever effect), and will also hold a 2d collider component, set to trigger 
     //-the chiuld component should have the SingingTrigger script
@@ -51,6 +53,7 @@ public class SingingPower : MonoBehaviour
 
             if (stopped)
             {
+                audioS.Pause();
                 stopped = false;
                 thisChar.unFreeze();
                 singingAnim.SetBool("Singing", false);
@@ -60,6 +63,7 @@ public class SingingPower : MonoBehaviour
             }
             else
             {
+                audioS.Play();
                 stopped = true;
                 thisChar.freeze();
                 singingAnim.SetBool("Singing", true);

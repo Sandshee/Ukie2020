@@ -14,10 +14,13 @@ public class Button : MonoBehaviour
     private bool on = false;
 
     private Animator anim;
+    private AudioSource audioS;
+    public AudioClip press;
 
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        audioS = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -30,6 +33,7 @@ public class Button : MonoBehaviour
                 onButtonLeave.Invoke();
 
                 anim.SetBool("On", false);
+                audioS.PlayOneShot(press);
             }
         } else
         {

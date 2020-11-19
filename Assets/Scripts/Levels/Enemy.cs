@@ -16,6 +16,10 @@ public class Enemy : MonoBehaviour
 
     private SpriteRenderer sr;
 
+    public AudioClip sleeping;
+    public AudioClip idle;
+    private AudioSource audioS;
+
     private Animator anim;
     // Start is called before the first frame update
     void Start()
@@ -24,7 +28,7 @@ public class Enemy : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
-
+        audioS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,10 +42,12 @@ public class Enemy : MonoBehaviour
             }
 
             anim.SetBool("Sleeping", false);
+            audioS.clip = idle;
 
         } else
         {
             anim.SetBool("Sleeping", true);
+            audioS.clip = sleeping;
         }
 
         if (foundWall())

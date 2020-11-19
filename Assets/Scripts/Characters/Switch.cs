@@ -15,6 +15,8 @@ public class Switch : MonoBehaviour
 
     public int direction = 0;
 
+    private int previousIndex = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +64,11 @@ public class Switch : MonoBehaviour
             index = 0;
         }
 
-        cam.updateFollowing(characters[index]);
+        if (previousIndex != index)
+        {
+            cam.updateFollowing(characters[index]);
+        }
+
+        previousIndex = index;
     }
 }
