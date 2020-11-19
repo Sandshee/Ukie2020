@@ -24,6 +24,8 @@ public class Character : MonoBehaviour
     public float rayDist = 1f;
     public float offset = 0.5f;
 
+    public float minSpeed = 1f;
+
     public bool grounded = false;
 
     private Animator anim;
@@ -63,7 +65,7 @@ public class Character : MonoBehaviour
                 rb2d.AddForce(-direction * Vector2.Dot(rb2d.velocity, direction));
             }
 
-            if(Mathf.Abs(Vector2.Dot(rb2d.velocity, direction)) > 0.5f)
+            if(Mathf.Abs(Vector2.Dot(rb2d.velocity, direction)) > minSpeed)
             {
                 anim.SetBool("Moving", true);
             } else
@@ -73,10 +75,10 @@ public class Character : MonoBehaviour
             rotation(direction);
         }
 
-        if(rb2d.velocity.x > 0)
+        if(rb2d.velocity.x > minSpeed)
         {
             sr.flipX = false;
-        } else if (rb2d.velocity.x < 0)
+        } else if (rb2d.velocity.x < -minSpeed)
         {
             sr.flipX = true;
         }

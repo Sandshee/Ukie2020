@@ -16,6 +16,7 @@ public class RotateIcon : MonoBehaviour
 
     public float speed;
 
+
     // Update is called once per frame
 
     void Start()
@@ -24,6 +25,8 @@ public class RotateIcon : MonoBehaviour
         {
             quatAngles[i] = Quaternion.Euler(new Vector3(0, 0, angles[i]));
         }
+
+        transform.rotation = quatAngles[0];
     }
 
     void FixedUpdate()

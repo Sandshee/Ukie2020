@@ -9,6 +9,7 @@ public class Triangle : MonoBehaviour
     private CapsuleCollider2D thisCap;
     private Rigidbody2D thisBody;
     private Character thisChar;
+    public Animator anim;
 
     public int normalLayer;
     public int frozenLayer;
@@ -55,6 +56,7 @@ public class Triangle : MonoBehaviour
                 gameObject.layer = normalLayer;
                 thisBody.bodyType = RigidbodyType2D.Dynamic;
 
+                anim.SetBool("Sitting", false);
             }
             else
             {
@@ -63,6 +65,8 @@ public class Triangle : MonoBehaviour
                 thisCap.enabled = false;
                 gameObject.layer = frozenLayer;
                 thisBody.bodyType = RigidbodyType2D.Static;
+
+                anim.SetBool("Sitting", true);
 
                 //If its facing left, enable the left block
                 if (faceLeft)

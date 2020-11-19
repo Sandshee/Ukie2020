@@ -9,7 +9,7 @@ public class SpringPower : MonoBehaviour
     public float springForce;
     private Character thisChar;
     private Rigidbody2D thisBody;
-    public BoxCollider2D thisCol;
+    public CapsuleCollider2D thisCol;
     public BoxCollider2D springCol;
 
     public int normalLayer;

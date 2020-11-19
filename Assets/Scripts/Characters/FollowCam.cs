@@ -12,19 +12,22 @@ public class FollowCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float newX = Mathf.Lerp(transform.position.x, following.transform.position.x, speed);
-        float newY = Mathf.Lerp(transform.position.y, following.transform.position.y, speed);
-        float zValue = transform.position.z;
-
-        Vector2 newVec = new Vector2(newX, newY);
-
-        if (Vector2.Distance(newVec, following.transform.position) < minDist)
+        if (following)
         {
-            transform.position = new Vector3(following.transform.position.x, following.transform.position.y, zValue);
-        }
-        else
-        {
-            transform.position = new Vector3(newX, newY, zValue);
+            float newX = Mathf.Lerp(transform.position.x, following.transform.position.x, speed);
+            float newY = Mathf.Lerp(transform.position.y, following.transform.position.y, speed);
+            float zValue = transform.position.z;
+
+            Vector2 newVec = new Vector2(newX, newY);
+
+            if (Vector2.Distance(newVec, following.transform.position) < minDist)
+            {
+                transform.position = new Vector3(following.transform.position.x, following.transform.position.y, zValue);
+            }
+            else
+            {
+                transform.position = new Vector3(newX, newY, zValue);
+            }
         }
     }
 

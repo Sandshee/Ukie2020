@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SandyDevScenes/SwitchCharacter.unity
+    guid: a99881eff079b17428683702ab908183
   m_configObjects: {}

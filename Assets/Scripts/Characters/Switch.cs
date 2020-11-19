@@ -41,7 +41,7 @@ public class Switch : MonoBehaviour
         }
 
 
-        if (!canSwitch)
+        if (!canSwitch && Input.GetAxisRaw("SwitchLeft") <= 0 && Input.GetAxisRaw("SwitchRight") <= 0)
         {
             timer++;
         }
